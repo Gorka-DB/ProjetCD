@@ -1,8 +1,13 @@
 <?php
-include "connexionBD.php";
-$sql = "SELECT titre, image, prix, auteur, genre FROM CD";
+include "include.php";
+
+$sql = "SELECT titre, chemin_img, auteur, genre, prix FROM CD";
 $test = $connexion->query($sql);
 $array = ($test->fetch_all(MYSQLI_ASSOC));
-
-print('<img src='.$array[1].' alt ='.$array[0].'/>');
-print('<p></p>')
+for ($i=0; $i < count($array); $i++) {
+    print('<img src='.$array[$i]['chemin_img'].' alt ='.$array[$i]['titre'].'/>');
+    print('<p>Titre : '.$array[$i]['titre'].'</p>');
+    print('<p>Auteur : '.$array[$i]['auteur'].'</p>');
+    print('<p>Genre : '.$array[$i]['genre'].'</p>');
+    print('<p>Prix : '.$array[$i]['prix'].'</p>');
+}
