@@ -21,11 +21,22 @@
     </nav>
 </header>
 <form ENCTYPE="multipart/form-data" ACTION="upload.php" METHOD="POST">
-    <p><input type="text" name="titre"></p>
-    <p><input type="text" name="genre"></p>
-    <p><input type="text" name="auteur"></p>
-    <p><input type="number" name="prix"></p>
-    <p><input type=file name="photo"></p>
+    <p>Titre<input type="text" name="titre"></p>
+    <p>Genre<input type="text" name="genre"></p>
+    <p>Auteur<input type="text" name="auteur"></p>
+    <p>Prix<input type="number" name="prix"></p>
+    <p>Photo<input type=file name="photo"></p>
     <p><input type=submit name="envoiphoto"></p>
+
+    <?php
+    if(isset($_GET["titre"])){
+        if($_GET["erreur"] == "oui"){
+            print("<p class='alert alert-danger'>Erreur d'insertion de l'album ".$_GET["titre"]."</p>");
+        }
+        else if($_GET["erreur"] == "non"){
+            print("<p class='alert alert-danger'>Insertion de l'album ".$_GET["titre"]."Réussie"."</p>");
+        }
+    }
+    ?>
 </form>
 </body>

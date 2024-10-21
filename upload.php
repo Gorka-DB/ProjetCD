@@ -14,10 +14,13 @@ if(isset($_POST["envoiphoto"]) || $_FILES != null) {
             $prix = $_POST["prix"];
             $insertion = "INSERT INTO cd(titre, genre, auteur, prix, chemin_img) VALUES ('$titre', '$genre', '$auteur', $prix, '$uploadfile')";
             mysqli_query($connexion, $insertion);
+            print("<p>Ajout de $titre réussi</p>");
+
+            header("Location: backoffice.php?titre=$titre&erreur=non");
         } else {
-            print("<p> Données manquantes </p>");
+            print("<p> Données manquantes pour l'ajout</p>");
+            header("Location : backoffice.php?titre=$titre&erreur=oui");
         }
     }
 };
 ?>
-//AJOUTER RETOUR VERS BACK OFFICE AVEC MESSAGE TYPE "AJOUT DE [TITRE] REUSSI"
