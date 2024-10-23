@@ -19,12 +19,12 @@ if (isset($_POST['login']) && isset($_POST['pwd'])) {
         $_SESSION['panier'] = array();
 
         // on redirige notre visiteur vers une page de notre section membre
-        header ('location: panier.php');
+        header ('location: index.php');
     }
     else {
         echo '<body onLoad="alert(\'Membre non reconnu...\')">';
         // puis on le redirige vers la page d'accueil
-        echo '<meta http-equiv="refresh" content="0;URL=index.php">';
+        echo '<meta http-equiv="refresh" content="0;URL=login.php">';
     }
 } else {
     echo 'Les variables du formulaire ne sont pas déclarées.';

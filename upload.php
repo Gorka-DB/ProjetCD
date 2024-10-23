@@ -5,7 +5,7 @@ include "include.php";
 $uploaddir = 'img/';
 if(isset($_POST["envoiphoto"]) || $_FILES != null) {
     foreach ($_FILES as $photo) {
-        $uploadfile = $uploaddir . $photo['name'];
+        $uploadfile = $uploaddir . str_replace(' ','_', $photo['name']);
         if (move_uploaded_file($photo['tmp_name'], $uploadfile)) {
             $titre = urlencode($_POST["titre"]);
             $genre = urlencode($_POST["genre"]);

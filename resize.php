@@ -22,6 +22,6 @@
         ImageDestroy($dst_im);
         ImageDestroy($src_im);
     }
-    $imageSource = urldecode($_GET["img"]);
+    $imageSource = str_replace(' ','_',urldecode($_GET["img"]));
     redimage($imageSource,300,300);
 ?>
