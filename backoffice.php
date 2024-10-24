@@ -40,10 +40,14 @@
     </nav>
     <?php
     if(isset($_GET["titre"]) && isset($_GET["erreur"])){
-        if ($_GET["erreur"] == "oui") {
-            print("<p class='alert alert-danger'>Erreur d'insertion de l'album " . $_GET["titre"] . "</p>");
-        } else if ($_GET["erreur"] == "non") {
-            print("<p class='alert alert-danger'>Insertion de l'album " . $_GET["titre"] . "Réussie" . "</p>");
+        if ($_GET["erreur"] == "non") {
+            print("<p class='alert alert-danger'>Insertion de l'album " . $_GET["titre"] . " réussie" . "</p>");
+        }
+        else if ($_GET["erreur"] == "upload") {
+            print("<p class='alert alert-danger'>Erreur d'Upload de l'image de l'album</p>");
+        }
+        else if ($_GET["erreur"] == "donnees") {
+            print("<p class='alert alert-danger'>Données manquantes pour insertion de l'album " . $_GET["titre"] . "</p>");
         }
     }
     if (isset($_GET["titre"]) && isset($_GET["suppression"])){
