@@ -65,7 +65,6 @@ include 'include.php';
     <div class="row row-cols-4">
         <?php
         $total = 0;
-        //var_dump($_SESSION['panier']);
         for ($i = 0; $i < count($_SESSION['panier']); $i++) {
 
             $sql = "SELECT * FROM CD WHERE id = ".array_keys($_SESSION['panier'])[$i];

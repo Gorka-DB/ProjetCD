@@ -57,5 +57,3 @@ $array = ($test->fetch_array(MYSQLI_ASSOC));
     print('<a href="index.php">Retour</a>');
 ?>
 </body>
-
-<!--$_POST["titre"]-->

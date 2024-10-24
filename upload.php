@@ -4,8 +4,10 @@ include "protection.php";
 ?>
 <?php
 $uploaddir = 'img/';
+var_dump($_FILES);
 if((isset($_POST["envoiphoto"]) || $_FILES != null) && $_SESSION["role"] = 1) {
-        if (move_uploaded_file($photo['tmp_name'], $uploadfile)) {
+        $uploadfile = $uploaddir . str_replace(' ','_', $_FILES['photo']['name']);
+        if (move_uploaded_file($_FILES['photo']['tmp_name'], $uploadfile)) {
             $titre = urlencode($_POST["titre"]);
             $genre = urlencode($_POST["genre"]);
             $auteur = urlencode($_POST["auteur"]);

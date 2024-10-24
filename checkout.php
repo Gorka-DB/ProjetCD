@@ -3,12 +3,6 @@ include "include.php";
 include "protection.php";
 ?>
 <?php
-//PEUT ETRE FAIRE PASSER PRIX EN VARIABLE DE SESSION POUR BIEN LE GARDER A CHAQUE FOIS SANS RISQUE DE PERTE
-//
-//if(isset($_POST["prix"]) && $_POST["prix"] != null){
-//$prix = $_POST["prix"];
-//}
-
 if(isset($_POST['cc-expiration'], $_POST['cc-number'], $_POST['cc-name'], $_POST['cc-cvv'])){
     $timezone = new DateTimeZone('Europe/Paris');
     $datedujour = new DateTime('now', $timezone);

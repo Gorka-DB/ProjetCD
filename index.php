@@ -88,5 +88,3 @@ session_start();
     <?php
     }
     ?>
-<!--<img src=resize.php?titre='.$array[$i]['titre'].'&img='.$array[$i]['chemin_img'].' class="card-img-top" alt="TEST">-->
-<!--class="btn btn-primary"-->
