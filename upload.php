@@ -1,11 +1,10 @@
 <?php
 include "include.php";
+include "protection.php";
 ?>
 <?php
 $uploaddir = 'img/';
-if(isset($_POST["envoiphoto"]) || $_FILES != null) {
-    foreach ($_FILES as $photo) {
-        $uploadfile = $uploaddir . str_replace(' ','_', $photo['name']);
+if((isset($_POST["envoiphoto"]) || $_FILES != null) && $_SESSION["role"] = 1) {
         if (move_uploaded_file($photo['tmp_name'], $uploadfile)) {
             $titre = urlencode($_POST["titre"]);
             $genre = urlencode($_POST["genre"]);
@@ -21,6 +20,6 @@ if(isset($_POST["envoiphoto"]) || $_FILES != null) {
             print("<p> Données manquantes pour l'ajout</p>");
             header("Location : backoffice.php?titre=$titre&erreur=oui");
         }
-    }
+
 };
 ?>

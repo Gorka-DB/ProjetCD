@@ -1,8 +1,9 @@
 <?php
 include "include.php";
+include "protection.php";
 ?>
 <?php
-if(isset($_GET["idAlbum"]) && $_GET["Action"] == "supprimer") {
+if(isset($_GET["idAlbum"]) && $_GET["Action"] == "supprimer" && $_SESSION["role"] = 1) {
     $suppression = "DELETE FROM cd WHERE id = ".$_GET["idAlbum"];
     $titre = $_GET["Titre"];
     if (mysqli_query($connexion, $suppression)) {

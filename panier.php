@@ -9,7 +9,6 @@ include 'include.php';
 </head>
 <body>
     <?php
-    //var_dump($_SESSION);
     $sql = "SELECT * FROM COMPTE WHERE id = ".$_SESSION['idCompte'];
     $test = $connexion->query($sql);
     $array = ($test->fetch_all(MYSQLI_ASSOC));
@@ -47,6 +46,15 @@ include 'include.php';
                 </div>
             </div>
         </nav>
+        <?php
+        if(isset($_GET["achat"])){
+            if ($_GET["achat"] == "oui") {
+                print("<p class='alert alert-info'>Votre Achat à bien été effectué</p>");
+            } else {
+                print("<p class='alert alert-danger'>Erreur lors du déroulement de l'achat</p>");
+            }
+        }
+        ?>
     </header>
     <?php
         if (isset($_GET["action"]) && $_GET["action"] == "suppr") {
@@ -60,7 +68,7 @@ include 'include.php';
         //var_dump($_SESSION['panier']);
         for ($i = 0; $i < count($_SESSION['panier']); $i++) {
 
-            $sql = "SELECT * FROM CD WHERE id = ".$_SESSION['panier'][$i];
+            $sql = "SELECT * FROM CD WHERE id = ".array_keys($_SESSION['panier'])[$i];
             $test = $connexion->query($sql);
             $cd = $test->fetch_row();
 
@@ -70,8 +78,10 @@ include 'include.php';
             $prix = urldecode($cd[3]);
             $chemin = urldecode($cd[4]);
             $id = urldecode($cd[5]);
+            $nbItem = $_SESSION['panier'][$id];
 
-            $total += floatval($prix);
+            $total += floatval($prix)*$nbItem;
+            $_SESSION['total'] = $total;
 
             ?>
             <div class="card col mb-3 mx-1">
@@ -80,18 +90,20 @@ include 'include.php';
                     <h5 class="card-title text-primary"><?=$titre?></h5>
                     <p class="card-text"><?=$auteur?></p>
                     <p class="card-text"><?=$genre?></p>
-                    <p class="card-text text-primary"><?=$prix?>€</p>
-                    <a href="panier.php?action=suppr&num=<?=$i?>" class="btn btn-danger">Supprimer du pannier</a>
+                    <p class="card-text text-primary"><?=$prix*$nbItem?>€ (<?=$nbItem?> exemplaire(s))</p>
+                    <a href="panier.php?action=suppr&num=<?=$id?>" class="btn btn-danger">Supprimer du pannier</a>
                 </div>
             </div>
             <?php
         }
         ?>
-        <h1>Prix total du panier : <?=$total?>€</h1>
+        <div class="card col mb-3 mx-1">
+        <h1 class="text-center">Prix total du panier : <?=$total?>€</h1>
         <form action='checkout.php' method='post'>
             <input type="hidden" name="prix" value="<?=$total?>">
             <button class="btn btn-primary w-100 py-2" type="submit">payer</button>
         </form>
+        </div>
         <?php
         }
         else {

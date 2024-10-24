@@ -1,16 +1,20 @@
-
-
 <?php
-    session_start();
+
+include "include.php";
+
+session_start();
     if (isset($_GET['idAlbum'])) {
-        array_push($_SESSION['panier'], $_GET['idAlbum']);
+        $_SESSION['panier'][$_GET['idAlbum']] += 1;
+
+        var_dump($_GET['idAlbum']);
+        var_dump($_SESSION['panier']);
+        var_dump(array_search($_GET['idAlbum'], $_SESSION['panier']));
         header('location: panier.php');
     }
     else{?>
         <head>
-            <?php
-            include "include.php";
-            ?>
+            <meta charset="UTF-8">
+            <title>Votre panier</title>
         </head>
         <body>
 
@@ -53,7 +57,7 @@
         $test = $connexion->query($sql);
         $array = ($test->fetch_all(MYSQLI_ASSOC));
         ?>
-            <div class="row row-cols-4">
+            <div class="row row-cols-5">
                 <?php
         for ($i = 0; $i < count($array); $i++) {
             ?>

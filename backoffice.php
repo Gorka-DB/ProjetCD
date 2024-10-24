@@ -38,66 +38,76 @@
             </div>
         </div>
     </nav>
+    <?php
+    if(isset($_GET["titre"]) && isset($_GET["erreur"])){
+        if ($_GET["erreur"] == "oui") {
+            print("<p class='alert alert-danger'>Erreur d'insertion de l'album " . $_GET["titre"] . "</p>");
+        } else if ($_GET["erreur"] == "non") {
+            print("<p class='alert alert-danger'>Insertion de l'album " . $_GET["titre"] . "Réussie" . "</p>");
+        }
+    }
+    if (isset($_GET["titre"]) && isset($_GET["suppression"])){
+        if($_GET["suppression"] == "oui"){
+            print("<p class='alert alert-danger'>Suppression de l'album ".$_GET["titre"]." Réussie </p>");
+        }
+        else if($_GET["suppression"] == "non"){
+            print("<p class='alert alert-danger'>Suppression de l'album ".$_GET["titre"]." Échouée"."</p>");
+        }
+    }
+    if (isset($_GET["titre"]) && isset($_GET["action"])){
+        print("<p class='alert alert-primary'>Modification de l'album ".$_GET["titre"]." effectuée"."</p>");
+    }
+    ?>
 </header>
 <!--AJOUT D'UN CD DANS LA BD-->
-<div>
-    <h4>AJOUT DE CD</h4>
-    <form ENCTYPE="multipart/form-data" ACTION="upload.php" METHOD="POST">
-        <p>Titre <input type="text" name="titre"></p>
-        <p>Genre <input type="text" name="genre"></p>
-        <p>Auteur <input type="text" name="auteur"></p>
-        <p>Prix <input type="number" name="prix"></p>
-        <p>Photo <input type=file name="photo"></p>
-        <p><input type=submit name="envoiphoto"></p>
-
-        <?php
-        if(isset($_GET["titre"]) && isset($_GET["erreur"])){
-            if ($_GET["erreur"] == "oui") {
-                print("<p class='alert alert-danger'>Erreur d'insertion de l'album " . $_GET["titre"] . "</p>");
-            } else if ($_GET["erreur"] == "non") {
-                print("<p class='alert alert-danger'>Insertion de l'album " . $_GET["titre"] . "Réussie" . "</p>");
-            }
-        }
-        if (isset($_GET["titre"]) && isset($_GET["suppression"])){
-            if($_GET["suppression"] == "oui"){
-                print("<p class='alert alert-danger'>Suppression de l'album ".$_GET["titre"]." REUSSIE </p>");
-            }
-            else if($_GET["suppression"] == "non"){
-                print("<p class='alert alert-danger'>Suppression de l'album ".$_GET["titre"]." ECHOUEE"."</p>");
-            }
-        }
-        ?>
-    </form>
-</div>
-
-<!--SUPRESSION DE CD VIA AFFICHAGE DE LA LISTE + BOUTON SUPPRIMER ?-->
 <?php
 $sql = "SELECT * FROM CD";
 $test = $connexion->query($sql);
 $array = ($test->fetch_all(MYSQLI_ASSOC));
 ?>
-<div class="row row-cols-4">
+<div class="row row-cols-5">
+    <div class="card col mb-3 mx-1">
+        <h4 class="text-primary"><strong>Ajouter un CD sur le site</strong></h4>
+        <form ENCTYPE="multipart/form-data" ACTION="upload.php" METHOD="POST">
+            <p><label>Photo : </label>
+                <input class="card-text" type=file name="photo"></p>
+            <p><label>Titre : </label>
+                <input class="card-text" type="text" name="titre"></p>
+            <p><label>Auteur : </label>
+                <input class="card-text" type="text" name="auteur"></p>
+            <p><label>Genre : </label>
+                <input class="card-text" type="text" name="genre"></p>
+            <p><label>Prix (€) : </label>
+                <input class="card-text" type="text" name="prix"></p>
+            <p><input type=submit name="envoiphoto"</p>
+        </form>
+    </div>
     <?php
     for ($i = 0; $i < count($array); $i++) {
         ?>
         <div class="card col mb-3 mx-1">
             <a href=detail.php?id=<?=$array[$i]['id']?>><img src="resize.php?titre=<?=($array[$i]['titre'])?>&img=<?=($array[$i]['chemin_img'])?>" class='card-img-top' alt="TEST"></a>
             <div class="card-body">
+                <form action="update.php" method="POST">
                 <?php $titre = urldecode($array[$i]["titre"])?>
-                <h5 class="card-title"><?=$titre?></h5>
+                    <p><label>Titre : </label>
+                    <input class="card-text" type="text" name="titre" value="<?=$titre?>"></p>
                 <?php $auteur = urldecode($array[$i]["auteur"])?>
-                <p class="card-text"><?=$auteur?></p>
+                    <p><label>Auteur : </label>
+                    <input class="card-text" type="text" name="auteur" value="<?=$auteur?>"></p>
                 <?php $genre = urldecode($array[$i]["genre"])?>
-                <p class="card-text"><?=$genre?></p>
-                <p class="card-text"><?=$array[$i]["prix"]?></p>
+                    <p><label>Genre : </label>
+                    <input class="card-text" type="text" name="genre" value="<?=$genre?>"></p>
+                    <p><label>Prix (€) : </label>
+                    <input class="card-text" type="text" name="prix" value="<?=$array[$i]["prix"]?>"></p>
+                    <input type="hidden" name="id" value="<?=$array[$i]["id"]?>"></p>
+                    <input type="submit" name="modifier" value="Mettre à jour">
+                </form>
                 <a href="delete.php?idAlbum=<?=$array[$i]["id"]?>&Titre=<?=$array[$i]["titre"]?>&Action=supprimer" class="btn btn-danger">Supprimer du Site et de la BD</a>
             </div>
         </div>
         <?php
     }
     ?>
-
-
-
-
+</div>
 </body>
