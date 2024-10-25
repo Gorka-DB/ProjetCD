@@ -6,7 +6,8 @@ if (!isset($_SESSION['login']) or !isset($_SESSION['pwd'])) {
 
         echo '<body onLoad="alert(\'Membre non reconnu...\')">';
         // puis on le redirige vers la page d'accueil
-        header('location: login.php');
+        echo '<meta http-equiv="refresh" content="0;URL=index.php">';
+
 }
 ?>
 

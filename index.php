@@ -2,17 +2,16 @@
 session_start();
 include "include.php";
 if (isset($_GET['idAlbum'])) {
+    if (!isset($_SESSION['panier'][$_GET['idAlbum']])) {
+        $_SESSION['panier'][$_GET['idAlbum']] = 0;
+    }
     $_SESSION['panier'][$_GET['idAlbum']] += 1;
-
-    var_dump($_GET['idAlbum']);
-    var_dump($_SESSION['panier']);
-    var_dump(array_search($_GET['idAlbum'], $_SESSION['panier']));
-    header('location: panier.php');
+    echo '<meta http-equiv="refresh" content="0;URL=panier.php">';
 }
 else{?>
     <head>
         <meta charset="UTF-8">
-        <title>Votre panier</title>
+        <title>Catalogue</title>
     </head>
     <body>
 

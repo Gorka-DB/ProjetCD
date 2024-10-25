@@ -1,6 +1,6 @@
 <?php
-include "include.php";
 include "protection.php";
+include "include.php";
 ?>
 <?php
 if(isset($_POST['cc-expiration'], $_POST['cc-number'], $_POST['cc-name'], $_POST['cc-cvv'])){
@@ -20,7 +20,8 @@ if(isset($_POST['cc-expiration'], $_POST['cc-number'], $_POST['cc-name'], $_POST
         echo '<body onLoad="alert(\'ACHAT OK...\')">';
         $_SESSION['panier'] = array();
         $_SESSION['total'] = 0.00;
-        header('location: panier.php?achat=oui');
+        echo '<meta http-equiv="refresh" content="0;URL=panier.php?achat=oui">';
+        //header('location: panier.php?achat=oui');
         //retour sur page panier avec panier vidé + notif de paiement effectué sur page panier
     }
 }

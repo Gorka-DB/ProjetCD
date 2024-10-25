@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include "connexionBD.php";
 // on teste si nos variables sont définies
 if (isset($_POST['login']) && isset($_POST['pwd'])) {
@@ -7,9 +7,8 @@ if (isset($_POST['login']) && isset($_POST['pwd'])) {
     $sql = "SELECT * FROM compte WHERE pswrd = '".$_POST['pwd']."' AND login = '".$_POST['login']."'";
     $test = $connexion->query($sql);
     $array = ($test->fetch_all(MYSQLI_ASSOC));
-    var_dump($array);
     if (count($array) > 0) {
-        session_start();
+        
         // on enregistre les paramètres de notre visiteur comme variables
         //de session ($login et $pwd) (
         $_SESSION['login'] = $_POST['login'];
@@ -19,7 +18,7 @@ if (isset($_POST['login']) && isset($_POST['pwd'])) {
         $_SESSION['panier'] = array();
 
         // on redirige notre visiteur vers une page de notre section membre
-        header ('location: index.php');
+        header('location: index.php');
     }
     else {
         echo '<body onLoad="alert(\'Membre non reconnu...\')">';

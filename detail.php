@@ -1,9 +1,17 @@
-<head>
 <?php
     session_start();
+    
     include 'include.php';
+    $sql = "SELECT * FROM cd WHERE id =".$_GET['id'];
+    $test = $connexion->query($sql);
+    $array = ($test->fetch_array(MYSQLI_ASSOC));
+    $titre = urldecode($array["titre"]);
+    $auteur = urldecode($array["auteur"]);
+    $genre = urldecode($array["genre"]);
 ?>
+<head>
     <meta charset="UTF-8">
+    <title>Catalogue - détails de <?=$titre?></title>
 </head>
 
 <body>
@@ -42,16 +50,9 @@
     </nav>
 </header>
 <?php
-
-$sql = "SELECT * FROM CD WHERE id =".$_GET['id'];
-$test = $connexion->query($sql);
-$array = ($test->fetch_array(MYSQLI_ASSOC));
     print('<img src='.str_replace(' ','_',urldecode($array['chemin_img'])).' alt="TEST" >');
-    $titre = urldecode($array["titre"]);
     print('<h5 class="">'.$titre.'</h5>');
-    $auteur = urldecode($array["auteur"]);
     print('<p class="">'.$auteur.'</p>');
-    $genre = urldecode($array["genre"]);
     print('<p class="">'.$genre.'</p>');
     print('<p class="">'.$array["prix"].'</p>');
     print('<a href="index.php">Retour</a>');
