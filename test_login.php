@@ -4,12 +4,12 @@ include "connexionBD.php";
 // on teste si nos variables sont définies
 if (isset($_POST['login']) && isset($_POST['pwd'])) {
     // on vérifie les informations saisies
-    $sql = "SELECT * FROM COMPTE WHERE pswrd = '".$_POST['pwd']."' AND login = '".$_POST['login']."'";
+    $sql = "SELECT * FROM compte WHERE pswrd = '".$_POST['pwd']."' AND login = '".$_POST['login']."'";
     $test = $connexion->query($sql);
     $array = ($test->fetch_all(MYSQLI_ASSOC));
     var_dump($array);
     if (count($array) > 0) {
-        session_start ();
+        session_start();
         // on enregistre les paramètres de notre visiteur comme variables
         //de session ($login et $pwd) (
         $_SESSION['login'] = $_POST['login'];

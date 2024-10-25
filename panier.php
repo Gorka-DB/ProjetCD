@@ -9,7 +9,7 @@ include 'include.php';
 </head>
 <body>
     <?php
-    $sql = "SELECT * FROM COMPTE WHERE id = ".$_SESSION['idCompte'];
+    $sql = "SELECT * FROM compte WHERE id = ".$_SESSION['idCompte'];
     $test = $connexion->query($sql);
     $array = ($test->fetch_all(MYSQLI_ASSOC));
     ?>
@@ -67,7 +67,7 @@ include 'include.php';
         $total = 0;
         for ($i = 0; $i < count($_SESSION['panier']); $i++) {
 
-            $sql = "SELECT * FROM CD WHERE id = ".array_keys($_SESSION['panier'])[$i];
+            $sql = "SELECT * FROM cd WHERE id = ".array_keys($_SESSION['panier'])[$i];
             $test = $connexion->query($sql);
             $cd = $test->fetch_row();
 
