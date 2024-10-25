@@ -90,7 +90,7 @@ include 'include.php';
                     <p class="card-text"><?=$auteur?></p>
                     <p class="card-text"><?=$genre?></p>
                     <p class="card-text text-primary"><?=$prix*$nbItem?>€ (<?=$nbItem?> exemplaire(s))</p>
-                    <a href="panier.php?action=suppr&num=<?=$id?>" class="btn btn-danger">Supprimer du pannier</a>
+                    <a href="panier.php?action=suppr&num=<?=$id?>" class="btn btn-danger">Supprimer du panier</a>
                 </div>
             </div>
             <?php
